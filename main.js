@@ -1,27 +1,68 @@
-class Rectangle {
-    constructor(width , height){
-        this.width = width
-        this.height = height
-    }
+// Var & Let & Const
 
-    render(){
-        console.log(this.width , this.height);
-    }
+if (true) {
+    
+    var x = 2 
+    
+    let y = 3 
+    
+    const z = 4 
+    
+    x=5
+    y=5
+    // z=5
+
+    
+// console.log("x:"+x);
+// console.log("y:"+y);
+// console.log("z:"+z);
+
 }
 
-class coloredRectangle extends Rectangle{
-    constructor(width , height ,color){
-        super(width , height)
-        this.color = color
-    }
 
-    show(){
-        return "<div style='width:"+this.width+"px;height:"+this.height+"px;background:"+this.color+"'></div>"
-    }
+// console.log("x:"+x);
+// console.log("y:"+y);
+// console.log("z:"+z);
+
+// Arrow Function
+
+function test (x , y) {
+
+    console.log(x+y);
+
 }
 
-var obj = new coloredRectangle(200 , 100 , "green");
-var obj2 = new coloredRectangle(300 , 500 , "red");
+const test2 = (x , y) => {
 
-document.getElementById("myDiv").innerHTML = obj.show()
-document.getElementById("myDiv2").innerHTML = obj2.show()
+    console.log(x+y);
+
+}
+
+const test3 =  y => {
+
+    console.log(y);
+
+}
+
+const test4 =  y => {return y*2}
+
+const test5 =  y =>  y*2
+    
+
+
+test(2 , 3)
+
+test2(2 , 3)
+
+test3(4)
+
+console.log(test4(5));
+
+console.log(test5(5));
+
+
+
+
+
+
+
