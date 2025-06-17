@@ -11,27 +11,14 @@ constructor () {
     this.state = {
         title : "سلام ایران"
     }
-    // this.handleSetTitle = this.handleSetTitle.bind(this)
 }
-
-handleSetTitle = () => {
-    this.setState(
-    { title : "سلام بابل"}
-    ) 
-}
-
-// handleSetTitle () {
-//     this.setState(
-//     { title : "سلام بابل"}
-//     ) 
-// }
 
 render () {
 
 return (
 <div className='main'>
-<Salam title = {this.state.title}/>
-<Timer x = {this.handleSetTitle}/>
+<Salam a = {this.state.title}/>
+<Timer/>
 </div>
 )
 }

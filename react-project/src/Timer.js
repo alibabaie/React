@@ -7,44 +7,89 @@ class Timer extends React.Component {
     constructor () {
         super ();
         this.state = {
-            time : 10
+            hour: 0,
+            minute: 0,
+            seccond: 0,
+            isStart:false
         }
     }
 
-componentDidMount () {
+startInterval = () => {
+  if (this.state.isStart == false) {
+  this.setState(
+             { 
+              isStart : true
+              }
+          )
 
-  interval = setInterval(
+      interval = setInterval(
         () => {
           this.setState(
-
-             { time : this.state.time - 1 }
-            
+             { 
+              seccond:this.state.seccond + 1
+              }
           )
+
+          if (this.state.seccond == 59) {
+           this.setState(
+             { 
+              seccond:0 ,
+              minute:this.state.minute + 1
+              }
+          )
+          }
+
+          
+          if (this.state.minute == 59) {
+           this.setState(
+             { 
+              minute:0 ,
+              hour:this.state.hour + 1
+              }
+          )
+          }
         },1000
 )
 }
+}  
 
-componentDidUpdate () {
-if ( this.state.time == 0 )
- {
- clearInterval (interval) ;
+stopInterval = () => {
+clearInterval (interval) ;
+  this.setState(
+             { 
+              isStart : false
+              }
+          )
+
 }
-    
-}
 
-componentWillUnmount () {
-
+resetInterval = () => {
+this.stopInterval();
+  this.setState(
+             { 
+            hour: 0,
+            minute: 0,
+            seccond: 0
+            }
+          )
 }
 
 render () {
-console.log("render");
+let h = this.state.hour
+let m = this.state.minute
+let s = this.state.seccond
 
 return (
   <>
   <h2 className='timer'>
-it is {this.state.time}
+  {/* { {this.state.hour + ":" + this.state.minute + ":" + this.state.seccond} } */}
+  {`${h > 9 ? h : "0"+h} : ${m > 9 ? m : "0"+m} : ${s > 9 ? s : "0"+s}`}
 </h2>
-<button onClick={this.props.x}>Change</button>
+<div className=''>
+<spann className='btn btn-success btn-lg m-2 fw-bold rounded rounded-circle' onClick={this.startInterval}>Start</spann>
+<spann className='btn btn-danger btn-lg m-2 fw-bold rounded rounded-circle' onClick={this.stopInterval}>Stop</spann>
+<spann className='btn btn-info btn-lg m-2 fw-bold rounded rounded-circle' onClick={this.resetInterval}>Reset</spann>
+</div>
 </>
 
 )
