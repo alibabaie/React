@@ -15,7 +15,7 @@ class Timer extends React.Component {
     }
 
 startInterval = () => {
-  if (this.state.isStart == false) {
+  if (this.state.isStart === false) {
   this.setState(
              { 
               isStart : true
@@ -30,7 +30,7 @@ startInterval = () => {
               }
           )
 
-          if (this.state.seccond == 59) {
+          if (this.state.seccond === 59) {
            this.setState(
              { 
               seccond:0 ,
@@ -40,7 +40,7 @@ startInterval = () => {
           }
 
           
-          if (this.state.minute == 59) {
+          if (this.state.minute === 59) {
            this.setState(
              { 
               minute:0 ,
@@ -85,10 +85,11 @@ return (
   {/* { {this.state.hour + ":" + this.state.minute + ":" + this.state.seccond} } */}
   {`${h > 9 ? h : "0"+h} : ${m > 9 ? m : "0"+m} : ${s > 9 ? s : "0"+s}`}
 </h2>
-<div className=''>
-<spann className='btn btn-success btn-lg m-2 fw-bold rounded rounded-circle' onClick={this.startInterval}>Start</spann>
-<spann className='btn btn-danger btn-lg m-2 fw-bold rounded rounded-circle' onClick={this.stopInterval}>Stop</spann>
-<spann className='btn btn-info btn-lg m-2 fw-bold rounded rounded-circle' onClick={this.resetInterval}>Reset</spann>
+<div>
+<button className='btn btn-success btn-lg m-2 fw-bold rounded rounded-circle' onClick={this.startInterval}>Start</button>
+<button className='btn btn-danger btn-lg m-2 fw-bold rounded rounded-circle' onClick={this.stopInterval}>Stop</button>
+<button className='btn btn-info btn-lg m-2 fw-bold rounded rounded-circle' onClick={this.resetInterval}>Reset</button>
+<button className='btn btn-warning btn-lg m-2 fw-bold rounded rounded-circle' onClick={this.props.x}>Test</button>
 </div>
 </>
 

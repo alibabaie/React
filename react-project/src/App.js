@@ -1,27 +1,49 @@
-import React from 'react';
-import {createRoot} from 'react-dom/client';
+import React , { useState } from 'react';
+import { createRoot } from 'react-dom/client';
 import Salam from './Salam';
 import Timer from './Timer';
 // import './style.css'
 
-class App extends React.Component {
- 
-constructor () {
-    super () ;
-    this.state = {
-        title : "سلام ایران"
+// Create Componenet With Class
+
+// class App extends React.Component {
+
+// constructor () {
+//     super () ;
+//     this.state = {
+//         title : "سلام ایران"
+//     }
+// }
+
+// render () {
+
+// return (
+// <div className='main'>
+// <Salam a = {this.state.title}/>
+// <Timer/>
+// </div>
+// )
+// }
+// }
+
+// Create Componenet With Function
+
+const App = () => {
+
+    const [title, setTitle] = useState("سلام ایران");
+
+   const handleSetTitle = () => {
+
+        setTitle("سلام مازندران")
     }
-}
 
-render () {
+    return (
+        <div className='main'>
+            <Salam a={title} />
+            <Timer x={handleSetTitle}/>
+        </div>
+    )
 
-return (
-<div className='main'>
-<Salam a = {this.state.title}/>
-<Timer/>
-</div>
-)
-}
 }
 
 export default App;
