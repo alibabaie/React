@@ -89,7 +89,15 @@ return (
 <button className='btn btn-success btn-lg m-2 fw-bold rounded rounded-circle' onClick={this.startInterval}>Start</button>
 <button className='btn btn-danger btn-lg m-2 fw-bold rounded rounded-circle' onClick={this.stopInterval}>Stop</button>
 <button className='btn btn-info btn-lg m-2 fw-bold rounded rounded-circle' onClick={this.resetInterval}>Reset</button>
-<button className='btn btn-warning btn-lg m-2 fw-bold rounded rounded-circle' onClick={this.props.x}>Test</button>
+<button className='btn btn-warning btn-lg m-2 fw-bold rounded rounded-circle' 
+onClick={this.props.handlesetIsLight}
+style={{
+  background: this.props.isLight ? "black" : "white" ,
+  color: this.props.isLight ? "white" : "black"
+}}
+>
+  { this.props.isLight ? "Dark" : "Light" }
+</button>
 </div>
 </>
 

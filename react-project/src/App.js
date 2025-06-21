@@ -30,17 +30,18 @@ import Timer from './Timer';
 
 const App = () => {
 
-    const [title, setTitle] = useState("سلام ایران");
+    const [title , setTitle] = useState("سلام ایران");
+    const [isLight , setIsLight] = useState(false);
 
-   const handleSetTitle = () => {
+   const handlesetIsLight = () => {
 
-        setTitle("سلام مازندران")
+        setIsLight(!isLight)
     }
 
     return (
-        <div className='main'>
+        <div className='main' style={{ background: isLight ? "white" : "black" }}>
             <Salam a={title} />
-            <Timer x={handleSetTitle}/>
+            <Timer isLight={isLight} handlesetIsLight={handlesetIsLight}/>
         </div>
     )
 

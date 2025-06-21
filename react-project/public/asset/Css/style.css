@@ -70,6 +70,7 @@ body{
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: rgb(247, 69, 247);
   color: chartreuse;
 
 }
