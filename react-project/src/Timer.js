@@ -1,5 +1,6 @@
 import React from 'react';
 import {createRoot} from 'react-dom/client';
+import TimerList from './TimerList';
 
 var interval ;
 
@@ -74,6 +75,14 @@ this.stopInterval();
           )
 }
 
+handleSaveTime = ()=>{
+let h = this.state.hour
+let m = this.state.minute
+let s = this.state.seccond
+let newTime = `${h > 9 ? h : "0"+h} : ${m > 9 ? m : "0"+m} : ${s > 9 ? s : "0"+s}`
+this.props.settimerArr([ ...this.props.timerArr , newTime])
+}
+
 render () {
 let h = this.state.hour
 let m = this.state.minute
@@ -81,10 +90,11 @@ let s = this.state.seccond
 
 return (
   <>
-  <h2 className='timer'>
+  <h2 className='timer' onClick={this.handleSaveTime}>
   {/* { {this.state.hour + ":" + this.state.minute + ":" + this.state.seccond} } */}
   {`${h > 9 ? h : "0"+h} : ${m > 9 ? m : "0"+m} : ${s > 9 ? s : "0"+s}`}
 </h2>
+
 <div>
 <button className='btn btn-success btn-lg m-2 fw-bold rounded rounded-circle' onClick={this.startInterval}>Start</button>
 <button className='btn btn-danger btn-lg m-2 fw-bold rounded rounded-circle' onClick={this.stopInterval}>Stop</button>
@@ -99,6 +109,10 @@ style={{
   { this.props.isLight ? "Dark" : "Light" }
 </button>
 </div>
+
+ <TimerList>
+    {this.props.timerArr}
+  </TimerList>
 </>
 
 )
