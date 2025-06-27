@@ -2,6 +2,7 @@ import React , { useState , useEffect } from 'react';
 import { createRoot } from 'react-dom/client';
 import Salam from './Salam';
 import Timer from './Timer';
+import { TestContext } from './testContext';
 
 
 // import './style.css'
@@ -31,15 +32,20 @@ const App = () => {
     }
 
     return (
+        <TestContext.Provider value={{
+            timerArr:timerArr ,
+            settimerArr:settimerArr
+            }}>
         <div className='main' style={{ background: isLight ? "white" : "black" }}>
             <Salam a={title} />
             <Timer
              isLight={isLight} 
              handlesetIsLight={handlesetIsLight}
-             timerArr={timerArr}
-             settimerArr={settimerArr}
+             
              />
         </div>
+        </TestContext.Provider>
+
     )
 
 }

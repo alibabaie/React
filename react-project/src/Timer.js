@@ -1,6 +1,7 @@
 import React from 'react';
 import {createRoot} from 'react-dom/client';
 import TimerList from './TimerList';
+import { TestContext } from './testContext';
 
 var interval ;
 
@@ -14,6 +15,8 @@ class Timer extends React.Component {
             isStart:false
         }
     }
+
+    static contextType = TestContext
 
 startInterval = () => {
   if (this.state.isStart === false) {
@@ -80,7 +83,7 @@ let h = this.state.hour
 let m = this.state.minute
 let s = this.state.seccond
 let newTime = `${h > 9 ? h : "0"+h} : ${m > 9 ? m : "0"+m} : ${s > 9 ? s : "0"+s}`
-this.props.settimerArr([ ...this.props.timerArr , newTime])
+this.context.settimerArr([ ...this.context.timerArr , newTime])
 }
 
 render () {
@@ -90,7 +93,7 @@ let s = this.state.seccond
 
 return (
   <>
-  <h2 className='timer' onClick={this.handleSaveTime}>
+  <h2 className='timer' onClick={this.handleSaveTime} style={{color:this.context}}>
   {/* { {this.state.hour + ":" + this.state.minute + ":" + this.state.seccond} } */}
   {`${h > 9 ? h : "0"+h} : ${m > 9 ? m : "0"+m} : ${s > 9 ? s : "0"+s}`}
 </h2>
@@ -111,7 +114,7 @@ style={{
 </div>
 
  <TimerList>
-    {this.props.timerArr}
+    {this.context.timerArr}
   </TimerList>
 </>
 
