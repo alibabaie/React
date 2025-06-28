@@ -79,10 +79,11 @@ this.stopInterval();
 }
 
 handleSaveTime = ()=>{
-let h = this.state.hour
-let m = this.state.minute
-let s = this.state.seccond
-let newTime = `${h > 9 ? h : "0"+h} : ${m > 9 ? m : "0"+m} : ${s > 9 ? s : "0"+s}`
+// let h = this.state.hour
+// let m = this.state.minute
+// let s = this.state.seccond
+// let newTime = `${h > 9 ? h : "0"+h} : ${m > 9 ? m : "0"+m} : ${s > 9 ? s : "0"+s}`
+let newTime = document.querySelector('.timer').innerHTML;
 this.context.settimerArr([ ...this.context.timerArr , newTime])
 }
 
@@ -93,7 +94,7 @@ let s = this.state.seccond
 
 return (
   <>
-  <h2 className='timer' onClick={this.handleSaveTime} style={{color:this.context}}>
+  <h2 className='timer' onClick={this.handleSaveTime}>
   {/* { {this.state.hour + ":" + this.state.minute + ":" + this.state.seccond} } */}
   {`${h > 9 ? h : "0"+h} : ${m > 9 ? m : "0"+m} : ${s > 9 ? s : "0"+s}`}
 </h2>
@@ -113,9 +114,7 @@ style={{
 </button>
 </div>
 
- <TimerList>
-    {this.context.timerArr}
-  </TimerList>
+ 
 </>
 
 )

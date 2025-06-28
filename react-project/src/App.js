@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 import Salam from './Salam';
 import Timer from './Timer';
 import { TestContext } from './testContext';
+import TimerList from './TimerList';
 
 
 // import './style.css'
@@ -33,16 +34,16 @@ const App = () => {
 
     return (
         <TestContext.Provider value={{
-            timerArr:timerArr ,
-            settimerArr:settimerArr
+            timerArr ,
+            settimerArr
             }}>
         <div className='main' style={{ background: isLight ? "white" : "black" }}>
             <Salam a={title} />
             <Timer
              isLight={isLight} 
              handlesetIsLight={handlesetIsLight}
-             
              />
+             <TimerList />
         </div>
         </TestContext.Provider>
 
