@@ -4,9 +4,9 @@ import { taskContext } from './taskContext';
 const TaskItems = ()=>{
 
     const {taskItems , setTaskItems} = useContext (taskContext);
-
+if (taskItems.length){
     return (
-        <ul className="list-group m-0 p-0 mt-2">
+        <ul className="list-group m-0 p-0 mt-4">
   
         {
             taskItems.map( t=> (
@@ -31,6 +31,10 @@ const TaskItems = ()=>{
 
         </ul>    
     )
+} else {
+        return  <h4 className='text-center text-danger mt-4'>هیچ کاری ثبت نشده است !</h4>
+    }
+    
 }
 
 export default TaskItems;
