@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { MainContext } from './contexts/MainContext';
 import style from './style.module.css';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 const Sidebar = ()=>{
 
@@ -13,18 +13,26 @@ const Sidebar = ()=>{
                 <li className={style.sidebar_avatar}>
                     <img src="/assets/images/user2.jpg" alt="" />
                 </li>
+                <NavLink className={({isActive})=> { return isActive ? "active_nav" : ""}} to="/user">
                 <li>
-                    <Link to="/user">کاربران</Link>
+                    کاربران
                 </li>
+                </NavLink>
+                <NavLink className={({isActive})=> { return isActive ? "active_nav" : ""}} to="/post">
                 <li>
-                    <Link to="/post">پست ها</Link>
+                    پست ها
                 </li>
+                </NavLink>
+                <NavLink className={({isActive})=> { return isActive ? "active_nav" : ""}} to="/gallery">
                 <li>
-                    <Link to="/gallery">گالری</Link>
+                    گالری
                 </li>
+                </NavLink>
+                <NavLink className={({isActive})=> { return isActive ? "active_nav" : ""}} to="/todo">
                 <li>
-                    <Link to="/todo">کارها</Link>
+                    کارها
                 </li>
+                </NavLink>
             </ul>
         </div>
     )
