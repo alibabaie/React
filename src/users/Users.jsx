@@ -1,11 +1,25 @@
-import React from 'react';
+import React , {useEffect, useState} from 'react';
 import style from '../style.module.css'
 import { Link, useNavigate } from 'react-router-dom';
 import swal from 'sweetalert';
+import axios from 'axios';
 
 const Users = ()=>{
 
     const navigate = useNavigate();
+    const [users , setUsers] = useState([]);
+
+    useEffect(() => {
+       
+        axios.get('https://jsonplaceholder.typicode.com/users').then(res=>{
+            setUsers(res.data);
+            
+        }).catch(err=>{
+            console.log(err);
+            
+        })
+    
+    }, []);
 
     const handleDelete = (itemId) => {
         // swal(`آیا از حذف رکورد ${itemId} اطمینان دارید؟`)
@@ -44,7 +58,10 @@ const Users = ()=>{
                     </Link>
                 </div>
             </div>
-            <table className="table bg-light shadow">
+
+            {users.length ? (
+
+              <table className="table bg-light shadow">
                 <thead>
                     <tr>
                         <th>#</th>
@@ -55,11 +72,13 @@ const Users = ()=>{
                     </tr>
                 </thead>
                 <tbody>
+                    
+                {users.map(u => (
                     <tr>
-                        <td>1</td>
-                        <td>qasem</td>
-                        <td>qasemB</td>
-                        <td>mahdicmptr@gmail.com</td>
+                        <td>{u.id}</td>
+                        <td>{u.name}</td>
+                        <td>{u.username}</td>
+                        <td>{u.email}</td>
                         <td>
                             
                             <i className="fas fa-edit text-warning mx-2 pointer" 
@@ -78,8 +97,16 @@ const Users = ()=>{
                             </i>
                         </td>
                     </tr>
+                ))}
+
                 </tbody>
             </table>
+
+            ) : (
+              <h4 className='text-center text-info'>لطفا کمی صبر کنید ...</h4>
+            )}
+
+           
         </div>
     )
 
