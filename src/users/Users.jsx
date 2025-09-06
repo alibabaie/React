@@ -10,6 +10,115 @@ const Users = ()=>{
     const [users , setUsers] = useState([]);
 
     useEffect(() => {
+
+// start of example
+
+    //  example 1     
+
+    // console.log(1);
+    // setTimeout(()=>{
+    //     console.log(2);
+        
+    // },1000)
+    
+    // console.log(3);
+
+
+    // example 2
+
+    // new Promise ((resolve , reject)=>{
+
+    //   console.log(1);
+    // setTimeout(()=>{
+    //     console.log(2);
+    //     resolve(true)
+    // },3000)
+
+    // }).then(res=>{
+    //      console.log(3);
+    // }).catch(err=>{
+    //         console.log(err);
+            
+    //     })
+
+        // example 3
+
+    //  let promise =  new Promise ((resolve , reject)=>{
+
+    //   console.log(1);
+    // setTimeout(()=>{
+    //     console.log(2);
+    //     resolve(true)
+    // },3000)
+
+    // })
+    // promise.then(res=>{
+    //      console.log(3);
+    // }).catch(err=>{
+    //         console.log(err);
+            
+    //     })
+
+
+        // example 4
+    
+    // const func = ()=>{
+
+    // return new Promise((resolve , reject)=>{
+
+    //   console.log(1);
+    //  setTimeout(()=>{
+    //      console.log(2);
+    //     resolve(true);
+    //  },3000)
+    // })
+    // }
+
+    // const test = async ()=>{
+    //     const res = await func();
+    //     if (res){
+    //         console.log(3);
+            
+    //     }
+    // }
+
+    // test();
+
+
+    // example 5
+
+    const prom = (id) =>{
+        return axios.get(`https://jsonplaceholder.typicode.com/users/${id}`)
+    }
+
+    const func = async (id)=>{
+
+    //    const res = await prom (id);
+    //    console.log(res.data);
+
+         await prom (id).then(res=>{
+            console.log(res.data);
+            
+         })
+       console.log(id);
+       
+    }
+
+    // const test = (id)=>{
+    //     axios.get(`https://jsonplaceholder.typicode.com/users/${id}`).then(res=>{
+    //         console.log(res.data);
+            
+    //      })
+    //    console.log(id);
+    // }
+
+    for (const item of [1,2,3,4,5,6]) {
+        
+        func(item);
+    }
+
+// end of examples
+
        
         axios.get('https://jsonplaceholder.typicode.com/users').then(res=>{
             setUsers(res.data);
@@ -51,11 +160,13 @@ const Users = ()=>{
                     <input type="text" className="form-control shadow" placeholder="جستجو"/>
                 </div>
                 <div className="col-2 text-start px-0">
+
                     <Link to='/user/add' state={"Zeynab"}>
                     <button className="btn btn-success">
                         <i className="fas fa-plus text-light"></i>
                     </button>
                     </Link>
+
                 </div>
             </div>
 
@@ -74,7 +185,7 @@ const Users = ()=>{
                 <tbody>
                     
                 {users.map(u => (
-                    <tr>
+                    <tr key={u.id}>
                         <td>{u.id}</td>
                         <td>{u.name}</td>
                         <td>{u.username}</td>
