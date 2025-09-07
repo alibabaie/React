@@ -11,115 +11,6 @@ const Users = ()=>{
 
     useEffect(() => {
 
-// start of example
-
-    //  example 1     
-
-    // console.log(1);
-    // setTimeout(()=>{
-    //     console.log(2);
-        
-    // },1000)
-    
-    // console.log(3);
-
-
-    // example 2
-
-    // new Promise ((resolve , reject)=>{
-
-    //   console.log(1);
-    // setTimeout(()=>{
-    //     console.log(2);
-    //     resolve(true)
-    // },3000)
-
-    // }).then(res=>{
-    //      console.log(3);
-    // }).catch(err=>{
-    //         console.log(err);
-            
-    //     })
-
-        // example 3
-
-    //  let promise =  new Promise ((resolve , reject)=>{
-
-    //   console.log(1);
-    // setTimeout(()=>{
-    //     console.log(2);
-    //     resolve(true)
-    // },3000)
-
-    // })
-    // promise.then(res=>{
-    //      console.log(3);
-    // }).catch(err=>{
-    //         console.log(err);
-            
-    //     })
-
-
-        // example 4
-    
-    // const func = ()=>{
-
-    // return new Promise((resolve , reject)=>{
-
-    //   console.log(1);
-    //  setTimeout(()=>{
-    //      console.log(2);
-    //     resolve(true);
-    //  },3000)
-    // })
-    // }
-
-    // const test = async ()=>{
-    //     const res = await func();
-    //     if (res){
-    //         console.log(3);
-            
-    //     }
-    // }
-
-    // test();
-
-
-    // example 5
-
-    const prom = (id) =>{
-        return axios.get(`https://jsonplaceholder.typicode.com/users/${id}`)
-    }
-
-    const func = async (id)=>{
-
-    //    const res = await prom (id);
-    //    console.log(res.data);
-
-         await prom (id).then(res=>{
-            console.log(res.data);
-            
-         })
-       console.log(id);
-       
-    }
-
-    // const test = (id)=>{
-    //     axios.get(`https://jsonplaceholder.typicode.com/users/${id}`).then(res=>{
-    //         console.log(res.data);
-            
-    //      })
-    //    console.log(id);
-    // }
-
-    for (const item of [1,2,3,4,5,6]) {
-        
-        func(item);
-    }
-
-// end of examples
-
-       
         axios.get('https://jsonplaceholder.typicode.com/users').then(res=>{
             setUsers(res.data);
             
@@ -142,11 +33,32 @@ const Users = ()=>{
 })
 .then((willDelete) => {
   if (willDelete) {
-    swal("حذف با موفقیت انجام شد", {
-      icon: "success",
+
+    axios({
+        method: "DELETE" ,
+        url: `https://jsonplaceholder.typicode.com/users/${itemId}`
+    }).then(res=>{
+        
+        if(res.status === 200){
+
+            const newUsers = users.filter(u => u.id !== itemId);
+            setUsers(newUsers);
+
+                  swal("حذف با موفقیت انجام شد", {
+                        icon: "success",
+                        buttons: "متوجه شدم" ,
     });
+        } else {
+            swal("عملیات با خطا مواجه شد" , {
+                icon:"error" ,
+                button:"متوجه شدم",
+            });
+        }
+    })
+
+    
   } else {
-    swal("شما از حذف رکورد منصرف شده اید");
+    swal("شما از حذف رورد منصرف شده اید");
   }
 });
     }
@@ -203,7 +115,7 @@ const Users = ()=>{
                             </i>
                             
                             <i className="fas fa-trash text-danger mx-2 pointer"
-                              onClick={()=>handleDelete(1)}
+                              onClick={()=>handleDelete(u.id)}
                             >
                             </i>
                         </td>
