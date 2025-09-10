@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState , useEffect } from 'react';
 import { useParams , Outlet, useNavigate , useLocation  } from 'react-router-dom';
 import style from '../style.module.css'
 import axios from 'axios';
+import swal from 'sweetalert'
 
 const AddUser = ()=>{
 
     const {userId} = useParams();
     const navigate = useNavigate();
-    const params = useLocation();
+    // const params = useLocation();
     // console.log(params);
 
     const [data , setData] = useState({
@@ -25,12 +26,46 @@ const AddUser = ()=>{
     const handleAddUser = (e)=>{
 
        e.preventDefault();
-       axios.post('https://jsonplaceholder.typicode.com/users' , data   ).then(res=>{
+      if(!userId)
+      {
+         axios.post('https://jsonplaceholder.typicode.com/users' , data   ).then(res=>{
         console.log(res);
+        swal(`${res.data.name}با موفقیت ایجاد شد`, {
+                                icon: "success",
+                                buttons: "متوجه شدم" ,
+            });
+        
+       })
+      }else{
+
+        axios.put(`https://jsonplaceholder.typicode.com/users/${userId}` , data   ).then(res=>{
+        console.log(res);
+          swal(`${res.data.name}با موفقیت ویرایش شد`, {
+                                icon: "success",
+                                buttons: "متوجه شدم" ,
+            });
         
        })
 
+      }
     }
+
+    useEffect(() => {
+        
+         axios.get(`https://jsonplaceholder.typicode.com/users/${userId}`).then(res=>{
+         setData({
+             name: res.data.name ,
+        username: res.data.username ,
+        email: res.data.email ,
+        address: {
+            street: res.data.address.street ,
+            city: res.data.address.city ,
+            suite: res.data.address.suite,
+            zipcode: res.data.address.zipcode
+        }
+         })
+       })    
+    }, []);
 
     return (
         <div className={`${style.item_content} mt-5 p-4 container-fluid container`}>
@@ -47,7 +82,7 @@ const AddUser = ()=>{
                         <label  className="form-label">نام کاربری</label>
                         <input type="text" className="form-control" value={data.username} onChange={(e)=>{setData({...data , username:e.target.value})}}/>
                     </div>
-                    <div class="mb-3">
+                    <div className="mb-3">
                         <label  className="form-label">ایمیل</label>
                         <input type="email" className="form-control" value={data.email} onChange={(e)=>{setData({...data , email:e.target.value})}}/>
                     </div>

@@ -8,11 +8,13 @@ const Users = ()=>{
 
     const navigate = useNavigate();
     const [users , setUsers] = useState([]);
+    const [mainUsers , setmainUsers] = useState([]);
 
     useEffect(() => {
 
         axios.get('https://jsonplaceholder.typicode.com/users').then(res=>{
             setUsers(res.data);
+            setmainUsers(res.data);
             
         }).catch(err=>{
             console.log(err);
@@ -62,6 +64,12 @@ const Users = ()=>{
   }
 });
     }
+
+    const handleSearch = (e)=>{
+        setUsers(mainUsers.filter(u=> u.name.includes(e.target.value)))
+    console.log(e.target.value);
+
+    }
     
     
     return (
@@ -69,7 +77,7 @@ const Users = ()=>{
             <h4 className="text-center">مدیریت کاربران</h4>
             <div className="row my-2 mb-4 justify-content-between w-100 mx-0">
                 <div className="form-group col-10 col-md-6 col-lg-4">
-                    <input type="text" className="form-control shadow" placeholder="جستجو"/>
+                    <input type="text" className="form-control shadow" placeholder="جستجو" onChange={handleSearch}/>
                 </div>
                 <div className="col-2 text-start px-0">
 
@@ -105,13 +113,8 @@ const Users = ()=>{
                         <td>
                             
                             <i className="fas fa-edit text-warning mx-2 pointer" 
-                            onClick={()=>navigate ("/user/add/2" , {state :
-                                {
-                                    x: "Ali" , 
-                                    y: "Amir Hossain"
-                                }
-                            })
-                            }>
+                            onClick={()=>navigate (`/user/add/${u.id}`)}>
+                            
                             </i>
                             
                             <i className="fas fa-trash text-danger mx-2 pointer"
