@@ -1,8 +1,8 @@
 import React, { useState , useEffect } from 'react';
-import { useParams , Outlet, useNavigate , useLocation  } from 'react-router-dom';
+import { useParams , Outlet, useNavigate , useLocation } from 'react-router-dom';
 import style from '../style.module.css'
 import axios from 'axios';
-import swal from 'sweetalert'
+import {setUserService , updateUserService} from '../service/UserService'
 
 const AddUser = ()=>{
 
@@ -23,30 +23,17 @@ const AddUser = ()=>{
         }
     })
 
+
+
     const handleAddUser = (e)=>{
 
        e.preventDefault();
       if(!userId)
       {
-         axios.post('https://jsonplaceholder.typicode.com/users' , data   ).then(res=>{
-        console.log(res);
-        swal(`${res.data.name}با موفقیت ایجاد شد`, {
-                                icon: "success",
-                                buttons: "متوجه شدم" ,
-            });
-        
-       })
-      }else{
+          setUserService(data);
 
-        axios.put(`https://jsonplaceholder.typicode.com/users/${userId}` , data   ).then(res=>{
-        console.log(res);
-          swal(`${res.data.name}با موفقیت ویرایش شد`, {
-                                icon: "success",
-                                buttons: "متوجه شدم" ,
-            });
-        
-       })
-
+    }else{
+        updateUserService( data , userId);
       }
     }
 
