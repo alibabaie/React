@@ -3,12 +3,14 @@ import style from '../style.module.css'
 import { Link, useNavigate } from 'react-router-dom';
 import swal from 'sweetalert';
 import axios from 'axios';
+import WithAlert from '../HOC/WithAlert';
 
-const Users = ()=>{
+const Users = (props)=>{
 
     const navigate = useNavigate();
     const [users , setUsers] = useState([]);
     const [mainUsers , setmainUsers] = useState([]);
+    const {Confirm , Alert} = props
 
     useEffect(() => {
 
@@ -23,18 +25,10 @@ const Users = ()=>{
     
     }, []);
 
-    const handleDelete = (itemId) => {
-        // swal(`آیا از حذف رکورد ${itemId} اطمینان دارید؟`)
+    const handleDelete = async (itemId) => {
 
-        swal({
-  title: "حذف رکورد !",
-  text: `آیا از حذف رکورد ${itemId} اطمینان دارید؟`,
-  icon: "warning",
-  buttons: true,
-  dangerMode: true,
-})
-.then((willDelete) => {
-  if (willDelete) {
+
+  if (await Confirm(`آیا از حذف رکورد ${itemId} اطمینان دارید؟`)) {
 
     axios({
         method: "DELETE" ,
@@ -46,23 +40,17 @@ const Users = ()=>{
             const newUsers = users.filter(u => u.id !== itemId);
             setUsers(newUsers);
 
-                  swal("حذف با موفقیت انجام شد", {
-                        icon: "success",
-                        buttons: "متوجه شدم" ,
-    });
+    Alert("حذف با موفقیت انجام شد" , "success")
         } else {
-            swal("عملیات با خطا مواجه شد" , {
-                icon:"error" ,
-                button:"متوجه شدم",
-            });
+            Alert("عملیات با خطا مواجه شد" , "error")
         }
     })
 
     
   } else {
-    swal("شما از حذف رکورد منصرف شده اید");
+    Alert("شما از حذف رکورد منصرف شده اید" , "info");
   }
-});
+
     }
 
     const handleSearch = (e)=>{
@@ -138,4 +126,4 @@ const Users = ()=>{
 
 }
 
-export default Users;
+export default WithAlert(Users);
