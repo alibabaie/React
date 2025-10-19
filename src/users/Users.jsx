@@ -1,16 +1,16 @@
 import React , {useEffect, useState} from 'react';
 import style from '../style.module.css'
 import { Link, useNavigate } from 'react-router-dom';
-import swal from 'sweetalert';
 import axios from 'axios';
 import WithAlert from '../HOC/WithAlert';
+import { Alert, Confirm } from '../utils/Alert';
 
 const Users = (props)=>{
 
     const navigate = useNavigate();
     const [users , setUsers] = useState([]);
     const [mainUsers , setmainUsers] = useState([]);
-    const {Confirm , Alert} = props
+    // const {Confirm , Alert} = props
 
     useEffect(() => {
 
@@ -126,4 +126,4 @@ const Users = (props)=>{
 
 }
 
-export default WithAlert(Users);
+export default Users;
