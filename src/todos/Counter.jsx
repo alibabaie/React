@@ -1,19 +1,25 @@
 import React, { useReducer, useState } from 'react';
 
-const init = 0
+const init = {
+    value1 : 0 ,
+    value2 : 10
+}
 
 const reducer = (state , action)=>{
 
-    // if (action === 'increment') return state + 1;
-    // if (action === 'decrement') return state - 1;
-    // if (action === 'reset') return init;
 
-    switch (action) {
+    switch (action.type) {
         case 'increment':
-            return state + 1
+            return { ...state , value1 : state.value1 + action.val }
 
             case 'decrement':
-                return state - 1  
+                return { ...state , value1 : state.value1 - action.val }  
+
+                case 'increment2':
+            return { ...state , value2 : state.value2 + action.val }
+
+            case 'decrement2':
+                return { ...state , value2 : state.value2 - action.val }
 
                 case 'reset':
                  return init
@@ -23,31 +29,30 @@ const reducer = (state , action)=>{
             return state
     }
 
-// return state + action;
+
 }
 
 const Counter = () => {
 
     const [count , dispatch] = useReducer(reducer , init)
 
-    // const [count , setCount] = useState(0)
-
-    // const handleCount = ()=>{
-
-        //   dispatch(1)
-
-        // setCount((prevCount)=>{
-        //     // action .....
-        //   return  prevCount + 1
-        // })
-    // }
 
     return (
         <div className='text-center my-3'>
-            <h1 className='text-center'>{count}</h1>
-            <button className='btn btn-success' onClick={()=>dispatch('increment')}>افزایش</button>
-            <button className='btn btn-danger' onClick={()=>dispatch('decrement')}>کاهش</button>
-            <button className='btn btn-warning' onClick={()=>dispatch('reset')}>ریست</button>
+            <h1 className='text-center'>{count.value1}</h1>
+            <h1 className='text-center'>{count.value2}</h1>
+
+            <div className='text-center my-3'>
+            <button className='btn btn-success' onClick={()=>dispatch({type:'increment' , val : 2})}>افزایش</button>
+            <button className='btn btn-danger' onClick={()=>dispatch({type:'decrement' , val : 1})}>کاهش</button>
+            </div>
+
+            <div className='text-center my-3'>
+            <button className='btn btn-success' onClick={()=>dispatch({type:'increment2' , val : 10})}>افزایش</button>
+            <button className='btn btn-danger' onClick={()=>dispatch({type:'decrement2' , val : 5})}>کاهش</button>
+            </div>
+
+            <button className='btn btn-warning' onClick={()=>dispatch({type:'reset'})}>ریست</button>
         </div>
     );
 }
